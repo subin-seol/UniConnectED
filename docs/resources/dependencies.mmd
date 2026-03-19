@@ -1,0 +1,26 @@
+graph TD
+  UC340[UC-340-SP-1: Add opportunity_public_id & slug<br/>Assignee: Margaret]
+  UC341[UC-341-SP-1: Create subscriptions app & models<br/>Assignee: Margaret]
+  UC342[UC-342-SP-2: /subscription/api/v1/product-pricing/<br/>Assignee: Cait]
+  UC343[UC-343-SP-3: /subscription/api/v1/checkout-session/<br/>Assignee: Cait]
+  UC344[UC-344-SP-3: Stripe webhook /subscription/api/v1/webhook/<br/>Assignee: Subin]
+  UC345[UC-345-SP-3: Cancel/Portal/Status/Override endpoints<br/>Assignee: David]
+  UC346[UC-346-SP-1: Add stripe_customer_id to User & Organisation<br/>Assignee: Margaret]
+  UC347[UC-347-SP-1: Structured logging<br/>Assignee: Subin]
+  UC350[UC-350-SP-5: Notify users before trial/renewal/expiry<br/>Assignee: William]
+
+  %% Dependencies with reasons
+  UC340 -->|Needed to map Opportunity → Stripe Product| UC342
+  UC341 -->|Models must exist for endpoint storage| UC342
+  UC341 -->|Models required for checkout session| UC343
+  UC341 -->|Models required for webhook updates| UC344
+  UC341 -->|Models required for subscription management endpoints| UC345
+  UC342 -->|Product pricing required before creating checkout session| UC343
+  UC343 -->|Checkout session must exist before webhook can process events| UC344
+  UC344 -->|Subscription state must be updated before status/cancel/override| UC345
+  UC344 -->|Webhook updates required for accurate notifications| UC350
+  UC345 -->|Endpoints exist to be logged| UC347
+  UC344 -->|Webhook exists to be logged| UC347
+  UC341 -->|Models must exist before notification logic| UC350
+  UC346 -->|Customer ID required for checkout session| UC343
+  UC346 -->|Customer ID required for subscription management| UC345

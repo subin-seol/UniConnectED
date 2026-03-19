@@ -1,0 +1,401 @@
+> git --no-pager diff 1dd786f b93e137
+diff --git a/opportunities/tests/test_participant_v2_api.py b/opportunities/tests/test_participant_v2_api.py
+new file mode 100644
+index 0000000..4a449c2
+--- /dev/null
++++ b/opportunities/tests/test_participant_v2_api.py
+@@ -0,0 +1,394 @@
++from django.test import TestCase
++from django.urls import reverse
++from django.contrib.auth import get_user_model
++from rest_framework.test import APIClient
++from rest_framework import status
++from rest_framework.authtoken.models import Token
++
++from opportunities.models import Opportunity, OpportunityParticipant
++from uniconnected_accounts.models import UserType, Organisation, OrganisationMemberProfile
++
++User = get_user_model()
++
++
++class OpportunityParticipantV2APITestCase(TestCase):
++    """Base test case for v2 participant API tests"""
++
++    def setUp(self):
++        """Set up test data"""
++        # Create test users
++        self.user = User.objects.create_user(
++            email='test@example.com',
++            password='testpass123'
++        )
++        self.other_user = User.objects.create_user(
++            email='other@example.com',
++            password='testpass123'
++        )
++
++        # Use get_or_create instead of create to avoid conflicts
++        self.student_type, _ = UserType.objects.get_or_create(
++            key='student',
++            defaults={'name': 'Student'}
++        )
++        self.org_type, _ = UserType.objects.get_or_create(
++            key='organisation',
++            defaults={'name': 'Organisation'}
++        )
++
++        # Create test organisation
++        self.organisation = Organisation.objects.create(
++            name='Test Organisation',
++            description='Test org description'
++        )
++
++        # Create organisation member profile
++        self.org_member = OrganisationMemberProfile.objects.create(
++            user=self.user,
++            organisation=self.organisation
++        )
++
++        # Create test opportunities
++        self.public_opportunity = Opportunity.objects.create(
++            title='Public Test Opportunity',
++            description='Public test description',
++            start_date='2024-01-01',
++            end_date='2024-12-31',
++            created_by=self.user,
++            visibility=Opportunity.VisibilityChoices.PUBLIC
++        )
++
++        self.private_opportunity = Opportunity.objects.create(
++            title='Private Test Opportunity',
++            description='Private test description',
++            start_date='2024-01-01',
++            end_date='2024-12-31',
++            created_by=self.user,
++            visibility=Opportunity.VisibilityChoices.PRIVATE
++        )
++
++        # Create API client
++        self.client = APIClient()
++
++        # Create token for authentication
++        self.token = Token.objects.create(user=self.user)
++        self.other_token = Token.objects.create(user=self.other_user)
++
++
++class PublicOpportunityParticipantTestCase(OpportunityParticipantV2APITestCase):
++    """Test cases for public opportunity participant operations"""
++
++    def test_create_participant_in_public_opportunity(self):
++        """Test creating a participant in a public opportunity"""
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.public_opportunity.id})
++        data = {
++            'email': self.user.email,
++            'user_type': 'student',
++            'questionnaire_answers': {'skill': 'Python'}
++        }
++
++        response = self.client.post(url, data, format='json')
++
++        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
++        self.assertEqual(response.data['email'], self.user.email)
++        self.assertEqual(response.data['user_type_key'], 'student')
++        self.assertTrue(response.data['accepted'])
++
++        # Verify participant was created in database
++        participant = OpportunityParticipant.objects.get(
++            opportunity=self.public_opportunity,
++            email=self.user.email
++        )
++        self.assertEqual(participant.user, self.user)
++        self.assertEqual(participant.user_type, self.student_type)
++        self.assertTrue(participant.accepted)
++
++    def test_email_mismatch_returns_400(self):
++        """Test using different email than authenticated user returns 400"""
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.public_opportunity.id})
++        data = {
++            'email': 'different@example.com',
++            'user_type': 'student'
++        }
++
++        response = self.client.post(url, data, format='json')
++
++        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
++        self.assertIn('Email must match', response.data['detail'])
++
++    def test_create_duplicate_participant_returns_409(self):
++        """Test creating duplicate participant returns 409 conflict"""
++        # First create a participant
++        OpportunityParticipant.objects.create(
++            opportunity=self.public_opportunity,
++            email=self.user.email,
++            user=self.user,
++            user_type=self.student_type,
++            accepted=True
++        )
++
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.public_opportunity.id})
++        data = {
++            'email': self.user.email,
++            'user_type': 'student'
++        }
++
++        response = self.client.post(url, data, format='json')
++
++        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
++        self.assertIn('Already participating', response.data['detail'])
++
++
++class PrivateOpportunityParticipantTestCase(OpportunityParticipantV2APITestCase):
++    """Test cases for private opportunity participant operations"""
++
++    def test_create_participant_without_invitation_returns_403(self):
++        """Test creating participant in private opportunity without invitation returns 403"""
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.private_opportunity.id})
++        data = {
++            'email': self.user.email,
++            'user_type': 'student'
++        }
++
++        response = self.client.post(url, data, format='json')
++
++        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
++        self.assertIn('Invitation required', response.data['detail'])
++
++    def test_create_participant_with_valid_invitation(self):
++        """Test creating participant in private opportunity with existing invitation"""
++        # Create pending invitation
++        invitation = OpportunityParticipant.objects.create(
++            opportunity=self.private_opportunity,
++            email=self.user.email,
++            user_type=self.student_type,
++            accepted=None
++        )
++
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.private_opportunity.id})
++        data = {
++            'email': self.user.email,
++            'user_type': 'student',
++            'questionnaire_answers': {'skill': 'Django'}
++        }
++
++        response = self.client.post(url, data, format='json')
++
++        self.assertEqual(response.status_code, status.HTTP_200_OK)
++        self.assertEqual(response.data['email'], self.user.email)
++        self.assertTrue(response.data['accepted'])
++
++        # Verify invitation was completed
++        invitation.refresh_from_db()
++        self.assertEqual(invitation.user, self.user)
++        self.assertTrue(invitation.accepted)
++        self.assertEqual(invitation.questionnaire_answers, {'skill': 'Django'})
++
++    def test_complete_organization_invitation(self):
++        """Test completing organization invitation in private opportunity"""
++        # Create pending organization invitation
++        invitation = OpportunityParticipant.objects.create(
++            opportunity=self.private_opportunity,
++            email=self.user.email,
++            user_type=self.org_type,
++            accepted=None
++        )
++
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.private_opportunity.id})
++        data = {
++            'email': self.user.email,
++            'user_type': 'organisation'
++        }
++
++        response = self.client.post(url, data, format='json')
++
++        self.assertEqual(response.status_code, status.HTTP_200_OK)
++        self.assertTrue(response.data['accepted'])
++
++        # Verify invitation was completed with organization
++        invitation.refresh_from_db()
++        self.assertEqual(invitation.organisation, self.organisation)
++        self.assertTrue(invitation.accepted)
++
++
++class ParticipantRetrieveTestCase(OpportunityParticipantV2APITestCase):
++    """Test cases for retrieving participant details"""
++
++    def test_get_participant_as_user(self):
++        """Test retrieving participant details as user participant"""
++        # Create participant
++        participant = OpportunityParticipant.objects.create(
++            opportunity=self.public_opportunity,
++            email=self.user.email,
++            user=self.user,
++            user_type=self.student_type,
++            accepted=True,
++            questionnaire_answers={'skill': 'Python'}
++        )
++
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.public_opportunity.id})
++
++        response = self.client.get(url)
++
++        self.assertEqual(response.status_code, status.HTTP_200_OK)
++        self.assertEqual(response.data['id'], participant.id)
++        self.assertEqual(response.data['email'], self.user.email)
++        self.assertEqual(response.data['user_type_key'], 'student')
++        self.assertTrue(response.data['accepted'])
++
++    def test_get_participant_as_organization(self):
++        """Test retrieving participant details as organization participant"""
++        # Create organization participant
++        participant = OpportunityParticipant.objects.create(
++            opportunity=self.public_opportunity,
++            email=self.user.email,
++            organisation=self.organisation,
++            user_type=self.org_type,
++            accepted=True
++        )
++
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.public_opportunity.id})
++
++        response = self.client.get(url)
++
++        self.assertEqual(response.status_code, status.HTTP_200_OK)
++        self.assertEqual(response.data['id'], participant.id)
++        self.assertEqual(
++            response.data['organisation_name'], self.organisation.name)
++
++    def test_get_participant_not_participant_returns_404(self):
++        """Test retrieving participant when user is not a participant returns 404"""
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.public_opportunity.id})
++
++        response = self.client.get(url)
++
++        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
++
++
++class ParticipantUpdateTestCase(OpportunityParticipantV2APITestCase):
++    """Test cases for updating participant details"""
++
++    def test_update_questionnaire_answers(self):
++        """Test updating participant questionnaire answers"""
++        # Create participant
++        participant = OpportunityParticipant.objects.create(
++            opportunity=self.public_opportunity,
++            email=self.user.email,
++            user=self.user,
++            user_type=self.student_type,
++            accepted=True,
++            questionnaire_answers={'skill': 'Python'}
++        )
++
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-id',
++                      kwargs={
++                          'opportunity_id': self.public_opportunity.id,
++                          'participant_id': participant.id
++                      })
++        data = {
++            'questionnaire_answers': {'skill': 'Django', 'experience': '2 years'}
++        }
++
++        response = self.client.patch(url, data, format='json')
++
++        self.assertEqual(response.status_code, status.HTTP_200_OK)
++
++        # Verify update in database
++        participant.refresh_from_db()
++        expected_answers = {'skill': 'Django', 'experience': '2 years'}
++        self.assertEqual(participant.questionnaire_answers, expected_answers)
++
++    def test_update_other_user_participant_returns_403(self):
++        """Test updating another user's participant returns 403"""
++        # Create participant for other user
++        other_participant = OpportunityParticipant.objects.create(
++            opportunity=self.public_opportunity,
++            email=self.other_user.email,
++            user=self.other_user,
++            user_type=self.student_type,
++            accepted=True
++        )
++
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-id',
++                      kwargs={
++                          'opportunity_id': self.public_opportunity.id,
++                          'participant_id': other_participant.id
++                      })
++        data = {
++            'questionnaire_answers': {'skill': 'Hacking'}
++        }
++
++        response = self.client.patch(url, data, format='json')
++
++        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
++
++
++class ParticipantDeleteTestCase(OpportunityParticipantV2APITestCase):
++    """Test cases for deleting participant"""
++
++    def test_delete_own_participation(self):
++        """Test deleting own participation"""
++        # Create participant
++        participant = OpportunityParticipant.objects.create(
++            opportunity=self.public_opportunity,
++            email=self.user.email,
++            user=self.user,
++            user_type=self.student_type,
++            accepted=True
++        )
++
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.public_opportunity.id})
++
++        response = self.client.delete(url)
++
++        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
++
++        # Verify participant was deleted
++        self.assertFalse(
++            OpportunityParticipant.objects.filter(id=participant.id).exists()
++        )
++
++    def test_delete_non_participant_returns_404(self):
++        """Test deleting participation when not a participant returns 404"""
++        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
++
++        url = reverse('opportunity-participant-detail',
++                      kwargs={'opportunity_id': self.public_opportunity.id})
++
++        response = self.client.delete(url)
++
++        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

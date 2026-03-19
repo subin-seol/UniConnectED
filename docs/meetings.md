@@ -1,0 +1,1067 @@
+# Meetings
+- [Meetings](#meetings)
+- [Client meetings](#client-meetings)
+  - [Client meeting #1](#client-meeting-1)
+  - [Client meeting #2 - 1:1 Bassam / David](#client-meeting-2---11-bassam--david)
+  - [Client meeting #3](#client-meeting-3)
+  - [Client meeting #4](#client-meeting-4)
+  - [Client meeting #5](#client-meeting-5) 
+  - [Client meeting #6 – Sprint 3 Planning](#client-meeting-sprint-3-planning-6)
+  - [Client meeting #7 – Sprint 2 Review](#client-meeting-sprint-2-review-7)
+- [Mentor meetings](#mentor-meetings)
+  - [Mentor meeting #1](#mentor-meeting-1)
+  - [Mentor meeting #2](#mentor-meeting-2)
+  - [Mentor meeting #3](#mentor-meeting-3)
+  - [Mentor meeting #4](#mentor-meeting-4)
+  - [Mentor meeting #5](#mentor-meeting-5)
+  - [Mentor meeting #6](#mentor-meeting-6)
+  - [Mentor meeting #7](#mentor-meeting-7)
+  - [Mentor meeting #8](#mentor-meeting-8)
+  - [Mentor meeting #9](#mentor-meeting-9)
+  - [Mentor meeting #10](#mentor-meeting-10)
+  - [Mentor meeting #11](#mentor-meeting-11)
+- [Group meetings](#group-meetings)
+  - [Rehearsal for client meeting #1](#rehearsal-for-client-meeting-1)
+  - [Standup Meeting #1](#standup-meeting-1)
+  - [Standup Meeting #2](#standup-meeting-2)
+  - [Rehearsal for client meeting #2](#rehearsal-for-client-meeting-2)
+  - [Extra Group Meeting #1](#extra-group-meeting-1)
+  - [Standup Meeting #3](#standup-meeting-3)
+  - [Extra Group Meeting #2](#extra-group-meeting-2)
+  - [Sprint 2 Planning Meeting](#sprint-2-planning-meeting)
+  - [Sprint 1 Retrospective](#sprint-1-retrospective)
+  - [Sprint 3 Review & Sprint 4 Planning](#sprint-3-review--sprint-4-planning)
+- [Template](#template)
+
+# Client meetings
+
+## Client meeting #1
+
+- **Date:** 2025-08-15
+- **Time:** 3:00 pm - 4:00 pm
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Caitlin Alberti
+  - David Sha
+  - All of UC-Wombat
+    - Haoran Cheng
+    - Zihao Liao
+    - Yinghui Li
+    - Yuxuan Li
+    - Wenda Zhang
+  - Akassharjun Shanmugarajah
+  - Amanda Samson – CEO
+  - Bassam Jalgha – Access MVP, Tech Lead / Main Contact, Platform Developer
+- **Agenda:**
+  - Introduction from client
+  - Introduction from both student teams
+  - The purpose and motivation of the project
+    - purpose: 
+        - Industry partners accessing anybody in the university (Present or graduate students), find suitable students.
+        - create the employment opportunity for students or graduates
+        - Offer part-time, casual, and graduate employment opportunities
+    - motivation:
+        - All of the students need to have easier ways to connect to each other
+        - Make code expandable and scalable.
+        - Expand the platform Asia-Pacific wide.
+  - Walk throught the current staging product.
+  - Discussion on the sprint task
+  - Discussion on the action items
+- **Discussion Points & Notes:**
+    - Current Teck Stack: React, Typescript, Django, Next.js, ChakraUI 
+    - Feature for different types of users:
+        - Students:
+            - View, edit their own profile (education, skills, hobbies, certificates, cv); 
+            - Discover page shows the list of schools or organisations. 
+            - Can add school into their own folder.
+            - Can't see other students
+        - Industry Partners:
+            - Able to see lists of students with filter options. 
+            - Add students into their own folder.
+            - Paid subscription for part-time/casual hiring; higher fee for graduate/full-time pool access.
+        - Coordinators:
+            - Able to create employment opportunity
+            - Can invite students and organisation, check matching status for students and organisations, analytic dashboard.
+            - Check and manage matching statues for students and schools.
+    - Might have more user types later
+    - No Job adverts. 
+    - AI ??
+    - Each team might take different tasks from the client, and allocate the task within the team ??
+    - Two teams need to work together for client and maintain communication between teams.
+    - Students break down user story into actionable task for sprint 2
+    - Competitor References: Handshake, PeopleGrove
+- **Action Items:**
+  - Bassam to create requirements document 
+  - Create capability matrix
+  - Join in client's repository 
+- **Staging Website**
+    - https://staging.uniconnected.com/
+        - access
+            - username: `staging`
+            - password: `$8S7*a8AHE#4`
+        - coordinator account:
+            - email: `coordinator@uniconnected.demo`
+            - password: `StrongPassword123`
+- **Next Meeting:** TBD
+
+## Client meeting #2 - 1:1 Bassam / David
+
+- **Date:** 2025-09-21
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Bassam Jalgha
+  - David Sha
+- **Agenda:**
+  - Clarify any outstanding questions
+- **Discussion Points & Notes:**
+  - 1. Opportunity
+    - Message each other
+  - 2. Open enrollment
+    - Can be done independently
+    - No such thing as restricting email domains
+    - Doing have a university model -- Database table
+    - Ability to join the employment opportunity
+  - 3. Discover page
+    - Designing ethe discover page for the component
+  - 4. Reusable Discover component
+    - Should come before number 3
+  - 5. Payment
+    - Maybe use stripe for payment processing
+    - Least developed
+    - How can we make different tier
+    - UI/UX to design the functionality of payment system
+    - Maybe use Django permission system to create.
+  - 7. Current tasks for MTSI
+    - He will create user stories.
+    - Maybe making a proximity database.
+- **Action Items:**
+  - Effectively by the next meeting we should have user stories to show
+
+
+## Client meeting #3
+
+- **Date:** 2025-08-22
+- **Time:** 3:00 pm - 4:30 pm
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - All of UC-Koala
+    - Margaret Xu, William Chen, Caitlin Alberti, David Sha, Subin Seol
+  - All of UC-Wombat
+    - Haoran Cheng, Zihao Liao, Yinghui Li, Yuxuan Li, Wenda Zhang
+  - Bassam Jalgha
+- **Agenda:**
+  - Go through the user story and tasks and validation with client
+- **Discussion Points & Notes:**
+  - [Updated User Story gsheet](https://docs.google.com/spreadsheets/d/1oZw1AhM36idC0kVI_nwk4KwSgVcgMwbIuJ_ajNZIauU/edit?gid=1373172239#gid=1373172239)
+  - [Figma design](https://www.figma.com/design/Z9keioFzKOlcga2qWNF3k5/UniConnected-Web-Final)
+  - One member from each team will join into Jira, bassam will allocate tasks to them, and self-allocate within the team.
+  - Clarify 
+    - Opportunity is more like a pool with organisations and students. Students need to fill questionnaire to join.
+    - University will be a new model, has name, domain ...
+  - Organisation can filter students by university
+  - Make the system scalable 
+  - For each task, need detailed techneque description:
+    - Include the flow, or the step to perform the task
+    - Handle edge cases
+    - Write as much detail as possible
+  - Bassam synthesised all the prepared user stories we created in both Koala and Wombat teams.
+  - Two nominated people are given access to Jira board and needs to keep it up to date.
+  - GitHub Kanban board will kind of be a 1:1 direct mapping to their Jira board.
+  - Full video available here \[[link](https://unimelbcloud-my.sharepoint.com/:f:/g/personal/dasha_student_unimelb_edu_au/EkdhR5osVypNpxmHQaZhU9YB32OzdLdIhIkAf-kamhOa9g?e=xZe5VF)\]
+- **Action Items:**
+  - Refine the user story for the next client meeting on Monday
+  - Each team has one person to join the Jira team
+  - Bassam to give access to GitHub and Figma.
+  - Bassam to give access to Google Sheets with updated user stories.
+  - Bassam to give his GitHub username so that we can share our docs.
+- **Next Meeting:** [Client meeting #4 2025-08-25](#client-meeting-4)
+
+
+## Client meeting #4
+
+- **Date:** 2025-08-28  
+- **Time:** 3:00 pm - 4:00 pm  
+- **Location/Platform:** Zoom  
+- **Attendees:**  
+  - All of UC-Koala: William Chen, Caitlin Alberti, David Sha, Subin Seol  
+  - Bassam Jalgha  
+- **Agenda:**  
+  - Prototype validation with client  
+  - Client comments on user story/prototype  
+- **Discussion Points & Notes:**  
+  - [Prototype design](https://www.figma.com/design/2iYdcR4AmusqHoQ3yWvwWU/Prototype?node-id=1-2&p=f&t=wePIx8udbB66W93Z-0)  
+  - Clarifications:  
+    - Only two types of opportunities: MIST and employee opportunity.  
+    - No home page; discover page will be the default page.  
+    - Opportunities not in database will not display on frontend (no placeholder “no available opportunities” page).  
+    - Remove public opportunities from profile view.  
+    - Use badges to separate public and private opportunities in dropdown list.  
+    - Private and invite-only opportunities will not show in discover dropdown if user isn’t enrolled.  
+    - Questionnaire should be short and fit on one page.  
+  - Next sprint expected to be technical.  
+  - Sprint planning validation with client scheduled in first few days of next sprint.  
+  - Possible future feature: paywall system (after Sprint 2).  
+  - Possible new feature: distance calculation / matching matrix.  
+  - Full video available [here](https://unimelbcloud-my.sharepoint.com/:f:/g/personal/sseol_student_unimelb_edu_au/Eoa-7UmX3N9FiQ2OHCzzXIgBi2oeI_wUp7VpgyIW646P7w?e=mNhQ09).  
+- **Action Items:**  
+  - Determine user story for next sprint before Friday.  
+  - Meet with the other team to review final prototype and break down tasks.  
+  - Schedule next week’s technical meeting.  
+- **Next Meeting:**  
+  - [Client meeting #5 2025-08-25](#client-meeting-5)  
+
+
+## Client meeting #5
+
+- **Date:** 2025-09-03  
+- **Time:** 5:00 pm - 6:00 pm  
+- **Location/Platform:** Zoom  
+- **Attendees:**  
+  - All of UC-Koala: William Chen, Caitlin Alberti, David Sha, Subin Seol, Margaret Xu  
+  - Bassam 
+- **Agenda:**  
+  - Review and breakdown of Sprint 2 tasks  
+- **Discussion Points & Notes:**  
+  - Project Overview  
+    - Focused on planning the “Public Opportunity Employment” epic.  
+    - Transitioning from private-only opportunities to supporting both public and private, enabling broader discovery.  
+  - Technical Implementation Details  
+    - Add visibility field to opportunity model.  
+    - Create v2 API endpoints:  
+      - `/api/v2/opportunities/coordinator/all` – coordinators get all opportunities.  
+      - `/api/v2/opportunities/all` – authenticated users get public + invited private opportunities.  
+    - Data migration to backfill existing opportunities as private.  
+    - CRUD APIs for opportunity participants: enrollment, cancellations, questionnaire responses.  
+    - University model restricting opportunities to university email domains.  
+  - Frontend Requirements  
+    - Build discover/opportunity detail page with enrollment support.  
+    - Questionnaire UI for employment opportunities.  
+    - Notifications for users from non-partner university domains.  
+    - Profile updates: enrolled opportunities + enrollment edits.  
+  - Development Practices  
+    - Add all changes to changelog.  
+    - Unit tests for backend features.  
+    - Update seed script with demo data.  
+    - PR review process: developer test → team review → final project lead review.  
+  - Project Timeline  
+    - Sprint 2 planned to end Week 9 (September 26).  
+    - Sprint 3 ends Week 12 (October 24).  
+    - Sprint 4 ends Week 13–14.  
+    - Team still considering 2-week vs 4-week sprint length.  
+  - Full video available here [link]()  
+- **Action Items:**  
+  - Update Jira with detailed task descriptions and story points.  
+  - Hold alignment meeting with other team to coordinate Sprint 2 tasks.  
+  - Decide sprint length (2-week or 4-week).  
+  - Set up recurring sprint planning meetings.  
+  - Team members to clone/run repositories with seed demo data.  
+- **Next Meeting:**  
+  - [Client meeting #6 TBD](#client-meeting-6) 
+
+## Client meeting Sprint 3 Planning #6 
+
+- **Date:** 2025-09-26  
+- **Time:** 3:30 pm – 4:30 pm  
+- **Location/Platform:** [Zoom](https://app.sparkmailapp.com/web-share/d0w2H2l-VK6mglO6yJDRVLwbOCCSgnaZHTqZCNF6)    
+- **Attendees:**  
+  - All of UC-Koala: William Chen, Caitlin Alberti, David Sha, Subin Seol, Margaret Xu  
+  - Bassam  
+- **Agenda:**  
+  - Plan Sprint 3 tasks and priorities  
+  - Discuss subscription and payment features  
+  - Address ABN validation and organisation verification  
+- **Discussion Points & Notes:**  
+  - [Sprint 3 Planning](ceremonies#sprint-3-planning)
+  - **Task Management**  
+    - Bassam suggested completing breakdown early next week for review.  
+  - **Subscription Features**  
+    - Subscriptions will be per opportunity, with different tiers for each user type (e.g., student $100 vs organization $5,000).  
+    - Subscription levels: monthly, yearly, free trial period.  
+    - Free trial users can access Discover but have limited profile visibility (skeleton components, no direct contact).  
+    - Subscription expiration notifications and cancellation workflows to be implemented.  
+  - **ABN Validation & Verification**  
+    - Add ABN validation for organisation signups.  
+    - Manual verification by admins before organisations gain full access.  
+    - Caitlin suggested checking ABN status for additional validation.  
+  - **Stripe Integration**  
+    - Create Stripe account and sandbox environment for testing monthly/yearly subscriptions.  
+    - Bassam to draft as a user story in web admin perspective.  
+  - **Sprint Planning Notes**: Prioritise subscriptions over distance calculations.  
+- **Action Items:**  
+  - Create Stripe account and sandbox environment (Bassam).  
+  - Implement ABN validation for organisations.  
+  - Add manual verification process for new organisations.  
+  - Draft user stories for subscription tiers, free trial, cancellation, and expiration notifications.  
+  - Break down subscription-related tasks by Monday and prepare JIRA board by end of week.  
+  - Align with Team Wombat to split subscription tasks evenly.  
+- **Next Meeting:**  
+  - [Client meeting #7 TBD](#client-meeting-7) 
+
+
+## Client meeting Sprint 2 Review #7 
+
+- **Date:** 2025-09-26  
+- **Time:** 4:30 pm – 5:30 pm  
+- **Location/Platform:** [Zoom](https://app.sparkmailapp.com/web-share/NEmMGfys_qX0nioIJrRBpw0K1jiDxt9jylFak9Ir)  
+- **Attendees:**  
+  - UC-Koala: William Chen, Caitlin Alberti, Subin Seol, Margaret Xu  
+  - Bassam Jalgha  
+- **Agenda:**  
+  - Review Sprint 2 work and PR progress  
+  - Improve PR review and submission process  
+  - Align on Sprint 3 preparation with Team Wombat  
+- **Discussion Points & Notes:**  
+  - **Sprint 2 Review**  
+    - Employment questionnaire PRs under final review (Subin to resolve Malik’s feedback).  
+    - Demo for Amanda scheduled for Tuesday by Bassam.  
+  - **PR Process Improvements**  
+    - Concerns raised: most PRs were submitted at end of sprint → created pressure.  
+    - Agreed to submit PRs earlier and in smaller chunks.  
+    - Daisy-chaining PRs discussed: useful but risk of dependency complexity.  
+    - Rebase PRs on dependencies (not always develop).  
+    - Use feature flags to continuously integrate smaller PRs.  
+  - **Team Alignment**  
+    - Only tasks in review carried over into Sprint 3.  
+    - Agreed all backend PRs must undergo code review before merging.  
+    - Slack is the preferred channel for PR communication (not email).  
+    - Bassam may push changes into PRs in urgent cases, but prefers team ownership.  
+  - **Team Wombat Coordination**  
+    - Need alignment on user story split and breakdown.  
+    - Plan to complete internal task breakdown before syncing with Wombat.  
+    - Tasks to be divided by Saturday night for Monday submission.  
+    - William unavailable Sunday → team to finish breakdown Saturday.  
+    - Chang fixed broken links on wiki and will review Ralph’s task breakdown.  
+- **Action Items:**  
+  - Subin to resolve Malik’s feedback on questionnaire PR.  
+  - Caitlin/team to create breakdown for payment features and share with Bassam.  
+  - Caitlin/team to hold internal breakdown meeting early next week.  
+  - Team to prepare detailed task breakdown by Monday.  
+  - William to draft rough breakdown for reassigned story.  
+  - Chang to review wiki changes and fix broken links.  
+  - Team to send user stories to Wombat for review.  
+  - Add feature flags for continuous integration of smaller PRs.  
+- **Next Meeting:**  
+  - [Client meeting #8 TBD](#client-meeting-8) 
+
+---
+
+# Mentor meetings
+
+## Mentor meeting #1
+
+- **Date:** 2025-08-07
+- **Time:** 4:00 PM - 5:00 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Subin Seol
+  - Caitlin Alberti
+  - David Sha
+  - All of UC-Wombat
+    - Haoran Cheng
+    - Zihao Liao
+    - Yinghui Li
+    - Yuxuan Li
+    - Wenda Zhang
+  - Akassharjun Shanmugarajah
+- **Agenda:**
+  - Introduce everyone
+  - Talk about action items
+  - What's required for the project
+- **Discussion Points & Notes:**
+  - Come up with questions for the client
+- **Action Items:**
+  - Complete the IP agreement - Assigned to: @everyone - Due by: 2025-08-08
+  - Write introductory email - Assigned to: @changxu1130 - Due by: 2025-08-12
+  - Determine SCRUM roles - Assigned to: @everyone - Due by: 2025-08-12
+  - Define conventions such as git branches etc - Assigned to: @d4vidsha - Due by: 2025-08-12
+- **Next Meeting:** [Mentor meeting #2 2025-08-11 at 1:00 PM](#mentor-meeting-2)
+
+## Mentor meeting #2
+
+- **Date:** 2025-08-11
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Subin Seol
+  - Caitlin Alberti
+  - David Sha
+  - Akassharjun Shanmugarajah
+- **Discussion Points & Notes:**
+  - Scrum Master Responsibilities
+    - Scheduling meeting with mentor
+    - Weekly end-of-week stand-up meetings to be conducted
+  - Ensure meetings are recorded and minutes are documented
+  - Sprint 1 Checklist
+    - Identify tasks that can and cannot be completed within the limited timeline
+    - Select 2-3 high priority tasks for focus, and create and experiment with Figma prototypes for demonstration
+    - Maintain documentation in the GitHub Wiki
+  - Client Communication
+    - Email draft to be updated: add more available time slots for clients to choose from and position the proposed time earlier in the email
+    - CC Akassh in all client emails
+    - Request permission to record meeting with clients
+    - Arrange rehearsal session with the Wombat team
+  - Assign clear action items to specific team members
+  - Prepare thoughtful questions for client meetings
+  - Complete AI declaration for any AI usage
+- **Action Items:**
+  - Update client email draft with more time slots and earlier placement [ASAP] - Assigned to: @changxu1130
+  - Schedule weekly stand-ups - Assigned to: @d4vidsha
+  - Gather client requirements and create user stories
+  - Identify sprint priorities
+- **Next Meeting:** [Rehearsal for client meeting 2025-08-12 at 5:00 PM](#rehearsal-for-client-meeting)
+
+
+## Mentor meeting #3
+
+- **Date:** 2025-08-18
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Subin Seol
+  - Caitlin Alberti
+  - David Sha
+  - Akassharjun Shanmugarajah
+- **Discussion Points & Notes:**
+  - Stand up
+  - Main blocker is requirements document, after having this documentation from the client
+    - Have an internal session together and define the following items:
+      - Come up with functional requirements and non-functional requirements
+      - User stories -> epics
+      - Acceptance criteria
+      - Story points assignment: Time & Effort estimation, should have a time and complexity component
+  - Sprint 1 DDL on next Friday (2025-08-29)
+  - Always record future meetings and meeting minutes
+- **Action Items:**
+  - Create the motivation model
+  - Functional/Non-functional requirements
+    - User stories, acceptance criteria，story point
+  - Two meetings one to validate requirements, one to validate prototype built in Figma
+    - Used **Maze** as a side tool to track user story & client feedback
+  - Define story point on wiki 
+  - Finish project background 
+- **Next Meeting:** [Mentor meeting 2025-08-25 at 1:00 PM](#mentor-meeting-4)
+
+## Mentor meeting #4
+
+- **Date:** 2025-08-25
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom [recording](https://app.sparkmailapp.com/web-share/M1g5mxLNfGdDlODWso63Kjp418wgLMe1i9f0ZoBp)
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Subin Seol
+  - Caitlin Alberti
+  - David Sha
+  - Akassharjun Shanmugarajah
+- **Discussion Points & Notes:**
+  - Standup
+  - Akassh mentioned to use the Fibonacci sequence for storypointing
+- **Action Items:**
+  - Thursday meeting to validate the prototype work - Assigned to: @subinai
+  - Come up with more user stories for sprint 2 and 3 - Assigned to: @cate-21
+  - Justify the estimation of the user stories - Assigned to: @cate-21 @subinai
+  - Show more impact of project overview goal and add back the project timeline - Assigned to: @d4vidsha
+- **Next Meeting:** [Mentor meeting 2025-09-01 at 1:00 PM](#mentor-meeting-5)
+
+
+## Mentor meeting #5
+
+- **Date:** 2025-09-01
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom 
+- **Attendees:**
+  - Margaret Xu，William Chen, Subin Seol, David Sha
+  - Akassharjun Shanmugarajah
+- **Agenda:**
+  - Standup
+  - Tutor feedback for sprint 1, general feedback on github wiki
+- **Discussion Points & Notes:**
+  - Feedback To Sprint 1 Wiki
+    - Update/Maintain more frequently
+      - Individual team members contirbute to it
+    - Readme / Home page:
+      - Home page should be a (non-technical) landing page
+      - Give more context to the Readme, need more improvement
+    - Story points：
+      - Are only for user story, not for the individual tasks
+      - Estimation should include consideration on both time and difficulties, use Fibonacci series
+      - Justification on the assignment should be included
+    - Content update 
+      - Project Goal: should include client's motivation as well 
+      - Project Scope: 
+        - Include justification of what is in scope/out of scope 
+        - Requirements, functional and non-functional should be a separate page
+- **Action Items:**
+  - Make sure tutors also have access to the client github repository
+  - Have another meeting to clear up the user story/tasks.
+- **Next Meeting:** :
+  - [Mentor meeting 2025-09-08 at 1:00 PM](#mentor-meeting-6)      
+  - [Sprint 2 Planning meeting 2025-09-01 at 4:00 PM](#Sprint-2-planning-meeting-1)
+
+## Mentor meeting #6
+- **Date:** 2025-09-08
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom 
+- **Attendees:**
+  - Margaret Xu，William Chen, Subin Seol, David Sha, Caitlin Alberti
+  - Akassharjun Shanmugarajah
+- **Agenda:**
+  - Tutor feedback for sprint 1, general feedback on github wiki
+- **Discussion Points & Notes:**
+  - README: Improved beyond template, now clearer and more informative.
+  - Project Background:
+    - Lacks client’s motivation — needs to explicitly state why this system is valuable for them.
+  - Scope:
+    - Requirements listed are still high-level rather than functional.
+    - Needs better justification for in-scope items (e.g., based on stakeholder priorities).
+    - Add an out-of-scope section for features that won’t be implemented.
+    - Expand constraints to detail technical, legal, or resource limitations.
+    - Timeline section is currently commented out — should be restored.
+  - Requirements:
+    - Missing clear functional and non-functional requirements.
+    - Functional requirements should follow format: “The system shall allow…”
+    - Requirements should be mapped to user stories.
+  - User Stories:
+    - Update story status from “draft” to “final” or “validated” as appropriate.
+    - Organise stories by epic (e.g., Enrolment, Matching, Dashboard).
+    - Link each user story to GitHub Project Board tickets.
+  - Requires major additions:
+    - Define branch naming conventions and commit message style.
+    - Clearly document how tasks move across Project Board workflow.
+    - Add a review process guide.
+    - Provide local development setup guide (can be adapted from client's internal doc).
+  - Sprint goals need to be more specific (e.g., “Implement Employment Questionnaire MVP”).
+  - Include capacity planning:
+    - Calculate individual/team hours per sprint.
+    - Justify user story selection based on available capacity.
+  - Task breakdown should happen before client meetings.
+  - Story point estimation should be comparative within team, not based on individual skill level.
+- **Action Items:**
+  - Add client motivation to the project background section. 
+  - Define and document proper functional & non-functional requirements.
+  - Justify in-scope/out-of-scope decisions in the Wiki.
+  - Expand development process documentation (branches, commits, reviews, setup).
+  - Update sprint goals to reflect actual tasks (not generic statements).
+  - Include capacity planning in sprint documentation.
+  - Create a document to track all client/mentor feedback and how it was addressed.
+  - Ensure all Sprint 3 tasks are created and assigned in the GitHub Project Board.
+  - Communicate any upcoming API contract changes to the partner team (e.g., Wombat team).
+- **Next Meeting:** 
+  - [Mentor meeting 2025-09-15 at 1:00 PM](#mentor-meeting-7)
+
+
+## Mentor meeting #7
+- **Date:** 2025-09-15
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom [recording](https://unimelb.zoom.us/rec/share/92zJI6jbFKgCK2I2aS2QG8zMplhlJWuWl9ZvPDiVZyQZS5zJGf-QWiygpMsRr2r0.q3XVAr4QC3SlCuLo?startTime=1757905817000)
+- **Attendees:**
+  - Margaret Xu，William Chen, Subin Seol, David Sha, Caitlin Alberti
+  - Akassharjun Shanmugarajah
+- **Agenda:**
+  - Sprint 2 checklist walkthrough [link](https://canvas.lms.unimelb.edu.au/courses/215415/assignments/584588)
+- **Discussion Points & Notes:**
+  - Address changes from sprint 1 / mentor's feedback
+  - Keep everything updated
+  - The link of the user story should be what we have in the git task borad but not from the client jira, since tutors and teaching staffs don't have access to it.
+  - For sprint 1 review can be the prototype validation. We still need to have sprint 1 retrospective.
+  - Sprint review show work with the client，engaged with Amanda/Bassam, shared the work we have done
+  - Code Review & Quality Assuranic
+    - Document the posites or negatures of AI code reviews, a reflection,
+    - Make sure everyone checks and ticks off code reviews
+    - Ask if we can copy the repository from the client, and do AI code review in our own repository.
+  - Demonstrate some examples git wiki page.
+- **Action Items:**
+  - Continue on Sprint 2 task
+  - Update git wiki
+  - Do Sprint 1 retro, it should include：
+    - What went well
+    - what could be improved
+- **Next Meeting:** 
+  - [Mentor meeting 2025-09-22 at 1:00 PM](#mentor-meeting-8)
+
+
+## Mentor meeting #8
+- **Date:** 2025-09-22
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - David Sha
+  - Akassharjun Shanmugarajah
+- **Agenda:**
+  - Stand up
+  - Sprint 2 items check
+- **Discussion Points & Notes:**
+  - In-scope and Out-of-scope should locate in project overview
+  - Story point should use Fibonacci number
+  - Update home page, should have navigation link to other pages
+  - Review examples of code review
+  - Mentor meeting will not be held during the semester mid-break
+- **Action Items:**
+  - Continue on Sprint 2 task
+  - Plan for sprint review and planning with the client
+  - Update git wiki
+- **Next Meeting:**
+  - [Mentor meeting 2025-10-06 at 1:00 PM](#mentor-meeting-9)
+
+
+## Mentor meeting #9
+- **Date:** 2025-10-06
+- **Time:** 1:00 PM – 1:30 PM
+- **Location/Platform:** Zoom ([recording link](https://unimelb.zoom.us/rec/share/9PYj4vGlTkK8FgjO30Cboaht02LhsBQ1V2NR0nmcCtzrWjcoWqa-3kRLYddy0BIA.NDR7BVdF9QnSXWyR))
+- **Attendees:**
+  - Margaret Xu
+  - Subin Seol
+  - Caitlin Alberti
+  - Akassharjun Shanmugarajah
+- **Agenda:**
+  - Review Sprint 3 checklist and assessment criteria
+  - Clarify new requirements (Ethical & Cybersecurity considerations)
+  - Discuss diagrams, documentation, and test case expectations
+  - Clarify expectations for final presentation and Sprint 4 handover
+- **Discussion Points & Notes:**
+  - **User Story Links:**
+    - Use GitHub Project Board task links (not Jira) since tutors and teaching staff don't have Jira access.
+  - **Sprint 3 Checklist Review:**
+    - Sprint 3 requirements are mostly the same as Sprint 2.
+    - Two new required sections:
+      - Ethical considerations
+      - Cybersecurity considerations
+    - Previous Sprint 2 feedback should still be applied.
+  - **Ethical & Cybersecurity Considerations:**
+    - Sensitive areas include:
+      - Student data ethics
+      - Stripe integration and secure API usage
+    - Suggested risks/mitigation examples:
+      - SQL injection
+      - Stored/reflected XSS
+      - Prompt injection (LLM scenario)
+    - Recommended approach:
+      - Use threat modeling (risk, likelihood, mitigation)
+      - Reference Australian data handling standards (e.g., CDR)
+      - Add recommendations for existing client code where relevant
+  - **Diagrams & Wiki Documentation:**
+    - Diagrams are not optional despite checklist wording.
+    - Sequence diagrams preferred over class diagrams for new flows.
+    - Where Django models already exist:
+      - Mention existing structures
+      - Add only relevant updates (e.g., added fields)
+    - All diagrams must be in the Wiki.
+  - **Test Case Documentation:**
+    - Even if unit tests exist in the repo, they must be visible to markers.
+    - Add:
+      - A wiki page or markdown table of test cases
+      - Short examples tied to user stories (e.g., null checks, CI requirements)
+  - **Sprint 4 Overview:**
+    - Sprint 4 is a handover sprint with no active development.
+    - Expected deliverables:
+      - Wiki-based documentation
+      - Summary of work completed
+      - Links to PRs, files, and handover docs
+      - Professional communication plan
+  - **Final Presentation (Week 12):**
+    - 10-minute total
+    - All or most members should speak
+    - Structure:
+      1. Background & problem context
+      2. Client requirements and solutions
+      3. Product demonstration
+      4. 2-minute Q&A
+    - Can be online (Zoom) or in-person
+- **Action Items:**
+  - Add Ethical Considerations section to Wiki for Sprint 3
+  - Add Cybersecurity Considerations section with threat modeling for Sprint 3
+  - Create/expand test case documentation in Wiki
+  - Produce diagrams for Sprint 3 features (e.g., Stripe flows)
+  - Begin planning Sprint 4 handover documentation format
+  - Prepare structure for Week 12 final presentation
+- **Next Meeting:** Mentor meeting 2025-10-13 at 1:00 PM
+
+## Mentor meeting #10
+- **Date:** 2025-10-13
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - Subin Seol
+  - Caitlin Alberti
+  - William Chen
+  - David Sha
+  - Akassharjun Shanmugarajah
+- **Discussion Points & Notes:**
+  - **Sprint 2 Feedback - Areas for Improvement**
+    - Missing deployment content: Product demo video link was on wiki but not included in GitHub zip/tag
+    - Changelog not updated for Sprint 2, must be included for Sprint 3
+    - Duplicate retrospective entries (team meetings vs ceremonies) caused confusion
+    - Missing testing documentation and test cases (required in rubric)
+    - Task management showed many moves at end of sprint instead of continuous updates
+      - Tasks should move to "in review" once complete
+      - Reviews should be requested early, discussed in stand-ups if pending
+      - Don’t wait for merges to mark tasks done
+    - Some PRs lacked team member review comments before client review → ensure peer review first
+    - Demo video pacing was too fast; no strict time limit exists, just keep it reasonable
+  - **Final Presentation Requirements**
+    - 10-minute live presentation, slides as PDF on Canvas + GitHub wiki
+    - Structure:
+      - Project intro & problem statement (include target users)
+      - Architecture overview (technical depth allowed)
+      - Product demo (main focus, 5–6 minutes, 4 key scenarios)
+      - Team learning journey & reflection
+      - Outcomes: planned vs completed requirements
+    - Slide design:
+      - Concise bullet points, readable typography
+      - Align colors with client branding
+      - Canva suggested for design
+    - Demo must be live, realistic data required (no placeholders)
+    - One presenter should share screen throughout
+    - If not deployed, explain why using architecture diagram
+    - Delivery: smooth transitions, avoid pauses, practice flow
+    - Client can be invited but not required
+  - **Sprint 3 & Sprint 4 Planning**
+    - Sprint 3 ends Friday (presentation day)
+    - After presentation → refine wiki + GitHub submission
+    - Sprint 4 = hypothetical planning (no dev work), should include:
+      - Remaining user stories/enhancements
+      - Handover documentation items
+      - Client feedback from Sprint 3
+    - Get as much client feedback as possible for Sprint 3
+- **Action Items:**
+  - Ensure wiki content is always included in GitHub zips/tags
+  - Update changelog for Sprint 3
+  - Remove duplicate/template wiki content
+  - Add comprehensive testing documentation with test cases
+  - Move GitHub tasks continuously, not all at deadline
+  - Raise PRs early and request peer reviews
+  - Ensure team reviews before client reviews
+  - Work on presentation slides alongside Sprint 3 dev
+  - Prepare and practice final presentation
+  - Plan hypothetical Sprint 4
+  - Prepare handover documentation with future enhancements
+- **Next Meeting:**
+  - [Mentor meeting 2025-10-20 at 1:00 PM](#mentor-meeting-11)
+
+## Mentor meeting #11
+- **Date:** 2025-10-20
+- **Time:** 1:00 PM - 1:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Subin Seol
+  - Caitlin Alberti
+  - William Chen
+  - David Sha
+  - Akassharjun Shanmugarajah
+- **Discussion Points & Notes:**
+  - **Presentation Feedback**
+    - Add an agenda slide listing topics to be covered
+    - Consider adding speaker names at bottom of slides
+    - Make diagrams more legible (crop or simplify for clarity)
+    - Add legends for icons (e.g., checkmark = completed)
+    - Include architecture diagram showing Django framework
+    - Incorporate design elements from pitch-a-thon slides for a cleaner look
+  - **Demo Guidance**
+    - One person should share screen for both slides and demo to avoid transition delays
+    - Practice timing (10 minutes total, ~4–5 minutes for demo)
+    - Speaker handovers should be explicit (e.g., “I’ll pass it on to David…”)
+    - Consider presenting together on campus from one device (Akassh can book a room)
+    - Present demo from user perspective with realistic scenarios
+  - **Sprint 4 Requirements**
+    - Create final release tag and zip package for client handover
+    - Document completed user stories, deployment, and testing
+    - Record 3–5 minute product demo video highlighting key features
+    - Apply STRIDE framework for cybersecurity considerations
+- **Action Items:**
+  - Update slides with agenda, speaker names, and legends
+  - Improve diagram clarity and add architecture overview
+  - Align slide design with pitch-a-thon style
+  - Rehearse timing and handovers before final presentation
+  - Decide on location (Zoom vs on-campus) and arrange setup if needed
+  - Prepare final release package and demo video
+  - Add STRIDE-based cybersecurity considerations to documentation
+---
+
+# Group meetings
+
+## Rehearsal for client meeting #1
+
+- **Date:** 2025-08-12
+- **Time:** 5:00 PM - 6:00 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Caitlin Alberti
+  - David Sha
+  - All of UC-Wombat
+    - Haoran Cheng
+    - Zihao Liao
+    - Yinghui Li
+    - Yuxuan Li
+    - Wenda Zhang
+- **Agenda:**
+  - Plan the client meeting following structure
+- **Discussion Points & Notes:**
+  - Understand how to ask questions during the meeting
+  - Meetings moving forward after the client meeting should be isolated to the team
+  - The upcoming meeting should be focused on the requirements of the client
+- **Action Items:**
+  - Send us the meeting itinerary - Assigned to: @changxu1130 - Due by: 2025-08-12
+- **Next Meeting:** [Client decision between Wednesday and Thursday this week](#client-meeting-1)
+
+## Standup Meeting #1
+
+- **Date:** 2025-08-13
+- **Time:** 8:30 PM - 9:00 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Caitlin Alberti
+  - David Sha
+  - Subin Seol
+- **Agenda:**
+  - The first Stand-up meeting
+- **Discussion Points & Notes:**
+  - Walk through git issue, task board and Wiki
+  - Define tem role and responsibilities, allocate team roles to other members
+    - QA: Caitlin
+    - Architectural lead: Subin and william
+  - Discuss the stategy if the client does not response for client meeting by tomorrow.
+    - sending chase up email to the client and mentor
+  - Allocate GitHub Wiki items to team members for updates
+- **Action Items:**
+  - Reach out to the client in afternoon tomorrow if no response - Assigned to: @changxu1130
+  - Populate team details section - Assigned to: @d4vidsha
+  - Create draft personas for 30 minutes (or more) - Assigned to: @weiliang-chen @subinai @d4vidsha @cate-21
+  - Add who/do/be/feel issue to a blocked section on kanban - Assigned to: @d4vidsha
+  - Detemined the next stand up meeting time using when2meet - Assigned to: @weiliang-chen
+- **Next Meeting:** [Standup Meeting #2](#standup-meeting-2)
+
+## Standup Meeting #2
+
+- **Date:** 2025-08-20
+- **Time:** 5:00 PM - 7:00 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Caitlin Alberti
+  - David Sha
+  - Subin Seol
+- **Agenda:**
+  - Go through the requirements document provided by the client
+  - Standup
+  - Nominate 1 representative for accessing client's Slack (let's have more people)
+  - skills matrix with nextjs/typescript, ChakraUI, DJANGO/DRF, Postgresql, Docker, AWS, GITHUB, Ui/UX, TESTING, DEVOPS
+- **Discussion Points & Notes:**
+  - Get to know the team by having a chat after the main concerns.
+  - Decided on that it is best to have everyone in the call.
+  - Break down requirements into tasks, visible at [spreadsheet](resources/client-requirements-breakdown.xlsx).
+- **Action Items:**
+  - Bring up high level concerns in next client email - Assigned to: @changxu1130
+    - "At the start of each sprint, we will design user stories together." Clarify that our team alone should create user stories and only show the user stories to them to validate
+    - "Each PR must be reviewed by at least **one member from the other team**." Address concerns with this requirement. We currently don't want to block our own work with the work of another team
+    - Paywall system: What is the current state of the paywall system. What will it look like? What features will be limited? etc.
+    - Clarify what is required in the development of filters and search for each opporunity. Our current understanding is that it would just be a plug and play development, assuming we already have the reusable components/logic for the filter and searching.
+    - In the [project overview](https://canvas.lms.unimelb.edu.au/courses/215415/pages/uniconnected-code-uc-2?module_item_id=6773877), it was stated that we may deal with the "including in-platform messaging and revenue systems". We don't currently see these in the requirements, is this something that we will care about at all then?
+  - Organise Thursday meeting across teams Koala and Wombat - Assigned to: @d4vidsha
+  - Create email to schedule client meeting on Thursday - Assigned to: @changxu1130
+  - Organise Friday team meeting for requirements creation - Assigned to: @d4vidsha
+  - Organise Monday client meeting - Assigned to: @d4vidsha
+  - Update the skill matrix and interest matrix with your own skills and interest - Assigned to: @everyone
+  - Make a timeline view for the task board - Assigned to: @d4vidsha
+- **Next Meeting:** [Standup Meetng #3](#standup-meeting-3)
+
+## Rehearsal for client meeting #2
+
+- **Date:** 2025-08-21
+- **Time:** 5:00 PM - 6:30 PM
+- **Location/Platform:** Zoom [recording](https://unimelb.zoom.us/rec/share/M-KDaewS0TqiaAkbGTZBopJFt3jvbHQ4jc_OsbiIjqkB4N3ZUPWPXm_0uY6FDBJc.ZfmRXIlVMC-z5ii5?startTime=1756882957000) - Passcode: =.0n2Kos
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Caitlin Alberti
+  - David Sha
+  - All of UC-Wombat
+    - Haoran Cheng
+    - Zihao Liao
+    - Yinghui Li
+    - Yuxuan Li
+    - Wenda Zhang
+- **Agenda:**
+  - Allocate tasks between two indivdual teams
+  - Arrange client meetings
+- **Discussion Points & Notes:**
+  - Schedule meeting with client for user story initial walkthrough, fully finalized and approved:
+    - Friday 3-5 PM 
+    - or Monday 9 to 10 AM
+  - Each team has a draft of the user stories & tasks breakdown (including the effort/time estimation) of their preferred requirement
+    - Koala : 1, 2, 3
+    - Wombat: 4, 5, 6
+    - Task 7 paywall system is out of concern for now
+- **Action Items:**
+  - Internal team alignment to walkthrough the feedback
+  - Double check the rubric checklist for sprint 1
+  - Each team need to send out invite for prototype review/feedback (this can be done after Monday)
+- **Next Meeting:** [Client meeting 3](#client-meeting-3)
+
+## Extra Group Meeting #1
+- **Date:** 2025-08-21
+- **Time:** 8:15 PM - 10:15 PM
+- **Location/Platform:** Discord
+- **Attendees:**
+  - Caitlin Alberti
+  - David Sha
+  - William Chen
+- **Agenda:**
+  - Clarify group understanding of "Employment Opportunity" and "Open-Enrolment" to ensure consistent user stories
+  - Document our assumptions for the user stories to discuss with client
+  - Document our questions to discuss with client to validate these assumptions and clarify ambiguities
+- **Discussion Points & Notes:**
+  - Will move forward with user story under assumptions: 
+    - Employment Opportunity is a single opportunity rather than a category as suggested in initial client meeting
+    - The employment questionnaire is distinct from the onboarding questionnaire (i.e., different to MTSI current flow)
+    - Open-enrolment is referring to the opportunity itself rather than the platform
+- **Action Items:**
+  - Update user stories to reflect these assumptions
+  - Clean up assumption and question document in preparation for next client meeting
+
+## Standup Meeting #3
+- **Date:** 2025-08-27
+- **Time:** 5:30 PM - 6:00 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - Margaret Xu
+  - William Chen
+  - Caitlin Alberti
+  - David Sha
+  - Subin Seol
+- **Agenda:**
+  - Standup
+  - Spring 1 progress check
+- **Discussion Points & Notes:**
+    - Discussion on the questionaire in the user story
+    - Friday pitchathon attendance：
+      - Margaret Xu, William Chen, Caitlin Alberti
+    - Hopefully everything can be done by Thursday.
+- **Action Items:**
+  - Continue to work on the prototype
+  - Prototype validation meeting at tomorrow (on Thursday) with client.
+  - Finaliase the user story during tomorrow's meeting
+  - Idealy have a meeting tomorrow after client meeting to complete the group contract.
+  - Update Who-Do-Be-Feel diagram - Assigned to: @weiliang-chen
+- **Next Meeting:** [Standup Meetng #4](#standup-meeting-4)
+
+
+## Extra Group Meeting #2
+- **Date:** 2025-08-28
+- **Time:** 4:00 PM - 5:00 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - William Chen, Caitlin Alberti, David Sha, Subin Seol
+- **Agenda:**
+  - User story point estimation - group activity
+- **Discussion Points & Notes:**
+    - [Updated user story](https://docs.google.com/spreadsheets/d/1oZw1AhM36idC0kVI_nwk4KwSgVcgMwbIuJ_ajNZIauU/edit?gid=1373172239#gid=1373172239)
+    - Making some changes on the user stories
+- **Action Items:**
+    - Finish the group contract on later today or tomorrow
+    - Break down tasks and put them in sprint 2 planning / user story pages
+- **Next Meeting:** [Standup Meetng #5](#standup-meeting-5)
+
+## Sprint 2 Planning Meeting
+- **Date:** 2025-09-01
+- **Time:** 4:00 PM - 4:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - William Chen, Margaret Xu, David Sha, Subin Seol
+- **Agenda:**
+  - Sprint 2 Planning Meeting
+- **Discussion Points & Notes:**
+    - Discussion on the first 5 user story task
+    - Initially assign task to team member, prepare for the client meeting
+- **Action Items:**
+    - Set up client meeting for sprint 2 user story tasks break down. 
+    - Transfer the dropdown component feedback to Wombat team.
+- **Next Meeting:**  [Client meeting #5 TBD](#client-meeting-5) 
+
+## Sprint 1 Retrospective
+- **Date:** 2025-09-18
+- **Time:** 8:00 PM - 10:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - William Chen, Margaret Xu, David Sha, Subin Seol, Caitlin Alberti
+- **Agenda:**
+  - AI copilot workflow
+  - Sprint 1 Retrospective
+- **Discussion Points & Notes:**
+    - Discussion on how to use AI copilot
+    - Review on Sprint 1 Review
+    - [Sprint 1 Retrospective](ceremonies#sprint-1-retrospective):
+      - What went well
+      - What can be improve
+    - Sprint 2 documentation breakdown, detail on [ticket](https://github.com/orgs/COMP90082-2025-sem2/projects/43?pane=issue&itemId=129377860&issue=COMP90082-2025-sem2%7CUC-Koala%7C60)
+    - Soft deadline is on 26, September, Friday.
+- **Action Items:**
+    - Everyone keep woring on their work.
+
+
+
+## Sprint 2 Retrospective
+- **Date:** 2025-09-24
+- **Time:** 8:00 PM - 10:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - William Chen, Margaret Xu, David Sha, Subin Seol, Caitlin Alberti
+- **Agenda:**
+  - Stand up
+  - Review what tasks are left for sprint 2 submission
+  - Sprint 2 Retrospective
+- **Discussion Points & Notes:**
+    - Stand up for everyone and check if any issue is encounter
+    - [Sprint 2 Retrospective](ceremonies#sprint-2-retrospective):
+      - What went well
+      - What can be improve
+      - Action item
+    - Soft deadline is on 26, September, Friday.
+- **Action Items:**
+    - Everyone keep woring on their work.
+    - Hosting sprint 2 review session with the client  - **Assign to:** Caitlin
+    - Code Review documentation - **Assign to:** Caitlin, Margaret, Subin, David
+    - Demonstration Video -**Assign to:** Caitlin, Subin
+    - Finish Sprint 1 Feedback address - **Assign to:** William
+
+
+## Sprint 3 Review & Sprint 4 Planning
+- **Date:** 2025-10-24
+- **Time:** 8:00 PM - 10:30 PM
+- **Location/Platform:** Zoom
+- **Attendees:**
+  - William Chen, Margaret Xu, David Sha, Subin Seol, Caitlin Alberti
+- **Agenda:**
+  - Review what tasks are left for sprint 3 submission
+  - Sprint 3 Retrospective
+- **Discussion Points & Notes:**
+    - Stand up for everyone and check if any issue is encounter
+    - [Sprint 3 Review](ceremonies#sprint-3-review):
+      - What went well
+      - What can be improve
+      - Action item
+    - Deadline is on 27, September, Friday.
+    - [Sprint 4 Planning](ceremonies#sprint-4-planning)
+- **Action Items:**
+    - Everyone keep woring on their work, and wrap up what's left for the documentation
+    - Cyber security considerations and ethical-considerations -**Assign to:** Subin
+    - Demonstration Video -**Assign to:** Caitlin
+    - Finish Sprint 2 Feedback address - **Assign to:** William
+    - Check if all PRs rebase correctly- **Assign to:** David
+    - Clean up what's left for the documentation -**Assign to:** Margarte Xu

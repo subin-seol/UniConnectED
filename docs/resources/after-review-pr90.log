@@ -1,0 +1,320 @@
+> git --no-pager diff 4e93d8c 3217131
+diff --git a/opportunities/api/v2/permissions.py b/opportunities/api/v2/permissions.py
+deleted file mode 100644
+index 15f0d9a..0000000
+--- a/opportunities/api/v2/permissions.py
++++ /dev/null
+@@ -1,86 +0,0 @@
+-from rest_framework.permissions import BasePermission
+-from django.core.exceptions import ObjectDoesNotExist
+-from opportunities.models import OpportunityParticipant, Opportunity
+-
+-
+-class IsOpportunityParticipant(BasePermission):
+-    """
+-    Permission that allows access only to opportunity participants.
+-    Checks if the authenticated user is a participant in the opportunity.
+-    """
+-    message = "You must be a participant in this opportunity."
+-
+-    def has_permission(self, request, view):
+-        if not request.user or not request.user.is_authenticated:
+-            return False
+-
+-        opportunity_id = view.kwargs.get('opportunity_id')
+-        if not opportunity_id:
+-            return False
+-
+-        # Check if user is a participant either as a user or through org
+-        user_participant = OpportunityParticipant.objects.filter(
+-            opportunity_id=opportunity_id,
+-            user=request.user,
+-            accepted=True
+-        ).exists()
+-
+-        if user_participant:
+-            return True
+-
+-        # Check if user is participant through organization
+-        try:
+-            user_org = request.user.organisationmemberprofile.organisation
+-            org_participant = OpportunityParticipant.objects.filter(
+-                opportunity_id=opportunity_id,
+-                organisation=user_org,
+-                accepted=True
+-            ).exists()
+-            if org_participant:
+-                return True
+-        except (AttributeError, ObjectDoesNotExist):
+-            # User has no OrganisationMemberProfile or related object doesn't exist
+-            pass
+-
+-        return False
+-
+-
+-class CanCreateParticipant(BasePermission):
+-    """
+-    Permission for creating participants.
+-    Public opportunities: always allow
+-    Private opportunities: require existing invitation
+-    """
+-    message = "Invitation required for this private opportunity."
+-
+-    def has_permission(self, request, view):
+-        if not request.user or not request.user.is_authenticated:
+-            return False
+-
+-        opportunity_id = view.kwargs.get('opportunity_id')
+-        if not opportunity_id:
+-            return False
+-
+-        try:
+-            opportunity = Opportunity.objects.get(id=opportunity_id)
+-        except Opportunity.DoesNotExist:
+-            return False
+-
+-        # Public opportunities allow anyone to participate
+-        if opportunity.visibility == Opportunity.VisibilityChoices.PUBLIC:
+-            return True
+-
+-        # Private opportunities require existing invitation
+-        if opportunity.visibility == Opportunity.VisibilityChoices.PRIVATE:
+-            # Check if there's a pending invitation for this user's email
+-            invitation_exists = OpportunityParticipant.objects.filter(
+-                opportunity=opportunity,
+-                email=request.user.email,
+-                user__isnull=True,
+-                organisation__isnull=True
+-            ).exists()
+-
+-            if not invitation_exists:
+-                return False
+-
+-        return True
+diff --git a/opportunities/api/v2/serializers.py b/opportunities/api/v2/serializers.py
+index 91ebaa7..9e250ee 100644
+--- a/opportunities/api/v2/serializers.py
++++ b/opportunities/api/v2/serializers.py
+@@ -1,6 +1,8 @@
+ from rest_framework import serializers
+ from opportunities.models import OpportunityParticipant
+-from uniconnected_accounts.models import UserType
++from uniconnected_accounts.models import UserType, StudentProfile
++# In the future, we should remove the dependency on v1 serializers
++from uniconnected_accounts.api.v1.serializers import OrganisationSerializerComplete, StudentProfileSerializerComplete
+ 
+ 
+ class OpportunityParticipantCreateSerializer(serializers.Serializer):
+@@ -17,41 +19,72 @@ class OpportunityParticipantCreateSerializer(serializers.Serializer):
+ 
+ 
+ class OpportunityParticipantDetailSerializer(serializers.ModelSerializer):
+-    """Serializer for participant details"""
++    """Serializer for participant details with complete data"""
+     user_type_key = serializers.CharField(
+         source='user_type.key', read_only=True
+     )
+-    user_type_name = serializers.CharField(
+-        source='user_type.name', read_only=True
+-    )
+-    status_display = serializers.ReadOnlyField()
+-    participant_name = serializers.SerializerMethodField()
+-    organisation_name = serializers.CharField(
+-        source='organisation.name', read_only=True
+-    )
++    participant_id = serializers.IntegerField(source='id', read_only=True)
++    email = serializers.EmailField(read_only=True)
++    accepted = serializers.BooleanField(read_only=True)
++    type = serializers.SerializerMethodField()
++    data = serializers.SerializerMethodField()
+ 
+     class Meta:
+         model = OpportunityParticipant
+         fields = [
+-            'id',
+-            'email',
+             'user_type_key',
+-            'user_type_name',
++            'participant_id',
++            'email',
+             'accepted',
+-            'status_display',
+-            'invited_time',
+-            'questionnaire_answers',
+-            'participant_name',
+-            'organisation_name'
++            'type',
++            'data'
+         ]
+ 
+-    def get_participant_name(self, obj):
+-        if obj.organisation:
+-            return obj.organisation.name
+-        elif obj.user:
+-            if obj.user.first_name and obj.user.last_name:
+-                return f"{obj.user.first_name} {obj.user.last_name}"
+-        return obj.email
++    def get_type(self, obj):
++        """Return the type of participant (organisation or student)"""
++        if obj.organisation_id:
++            return "organisation"
++        elif obj.user_id:
++            return "student"
++        else:
++            return "pending"
++
++    def get_data(self, obj):
++        """Return complete serialized data based on participant type"""
++        opportunity_id = self.context.get('opportunity_id')
++
++        if obj.organisation_id:
++            serializer = OrganisationSerializerComplete(
++                obj.organisation,
++                context={
++                    'opportunity_id': opportunity_id} if opportunity_id else {}
++            )
++            return serializer.data
++
++        elif obj.user_id:
++            # Get the student profile
++            profile = getattr(obj.user, 'studentprofile', None)
++            if profile is None:
++                profile = StudentProfile.objects.filter(user=obj.user).first()
++
++            if profile is None:
++                return {"error": "Student profile not found"}
++
++            serializer = StudentProfileSerializerComplete(
++                profile,
++                context={
++                    'opportunity_id': opportunity_id} if opportunity_id else {}
++            )
++            return serializer.data
++
++        else:
++            # No linked account yet, so return basic participant info
++            return {
++                "email": obj.email,
++                "accepted": obj.accepted,
++                "invited_time": obj.invited_time,
++                "questionnaire_answers": obj.questionnaire_answers
++            }
+ 
+ 
+ class OpportunityParticipantUpdateSerializer(serializers.ModelSerializer):
+diff --git a/opportunities/api/v2/views.py b/opportunities/api/v2/views.py
+index f802294..57884e6 100644
+--- a/opportunities/api/v2/views.py
++++ b/opportunities/api/v2/views.py
+@@ -12,7 +12,7 @@ from .serializers import (
+     OpportunityParticipantDetailSerializer,
+     OpportunityParticipantUpdateSerializer
+ )
+-from .permissions import CanCreateParticipant
++
+ from .utils import get_user_participant, get_or_create_participant_from_user
+ from .schemas import (
+     participant_retrieve_schema,
+@@ -27,29 +27,11 @@ class OpportunityParticipantView(APIView):
+     Endpoint for creating, retrieving, updating and deleting participant data.
+ 
+     GET:    Retrieve current user's participation
+-            (requires IsOpportunityParticipant)
+     POST:   Create participant or complete invitation
+-            (requires CanCreateParticipant)
+     PATCH:  Update current user's participation (questionnaire answers)
+-            (requires IsOpportunityParticipant)
+     DELETE: Remove own participation
+-            (requires IsOpportunityParticipant)
+     """
+-
+-    def get_permissions(self):
+-        """
+-        Return different permissions based on HTTP method
+-        """
+-        if self.request.method == 'GET':
+-            return [IsAuthenticated()]
+-        elif self.request.method == 'POST':
+-            return [IsAuthenticated(), CanCreateParticipant()]
+-        elif self.request.method == 'PATCH':
+-            return [IsAuthenticated()]
+-        elif self.request.method == 'DELETE':
+-            return [IsAuthenticated()]
+-        else:
+-            return [IsAuthenticated()]
++    permission_classes = [IsAuthenticated]
+ 
+     @participant_retrieve_schema
+     def get(self, request, opportunity_id):
+@@ -100,7 +82,7 @@ class OpportunityParticipantView(APIView):
+ 
+             if existing_participant:
+                 return self._handle_existing_participant(
+-                    existing_participant, opportunity, user_type,
++                    existing_participant, user_type,
+                     questionnaire_answers, request.user
+                 )
+ 
+@@ -142,18 +124,18 @@ class OpportunityParticipantView(APIView):
+ 
+         return True, (email, user_type, questionnaire_answers)
+ 
+-    def _handle_existing_participant(self, participant, opportunity, user_type,
++    def _handle_existing_participant(self, participant, user_type,
+                                      questionnaire_answers, user):
+         """Handle participation when user already has a participant record."""
+ 
+         # Check if this is a pending invitation that can be completed
+-        if self._is_pending_invitation(participant, opportunity):
++        if participant.accepted is not True:
+             return self._complete_invitation(
+                 participant, user_type, questionnaire_answers, user
+             )
+ 
+-        # Check if already participating
+-        if participant.accepted:
++        # If already participating
++        elif participant.accepted is True:
+             return self._return_existing_participation(participant)
+ 
+         # Return generic error on unhandled cases
+@@ -162,14 +144,6 @@ class OpportunityParticipantView(APIView):
+             status=status.HTTP_400_BAD_REQUEST
+         )
+ 
+-    def _is_pending_invitation(self, participant, opportunity):
+-        """Check if participant record represents a pending invitation."""
+-        is_private = opportunity.visibility == Opportunity.VisibilityChoices.PRIVATE
+-        no_user = participant.user is None
+-        no_org = participant.organisation is None
+-        not_accepted = participant.accepted is None
+-        return is_private and no_user and no_org and not_accepted
+-
+     def _complete_invitation(self, participant, user_type, questionnaire_answers, user):
+         """Complete a pending invitation by associating user/org and accepting."""
+ 
+diff --git a/opportunities/tests/test_participant_v2_api.py b/opportunities/tests/test_participant_v2_api.py
+index ab3fe0f..c31f767 100644
+--- a/opportunities/tests/test_participant_v2_api.py
++++ b/opportunities/tests/test_participant_v2_api.py
+@@ -252,7 +252,7 @@ class ParticipantRetrieveTestCase(OpportunityParticipantV2APITestCase):
+         response = self.client.get(url)
+ 
+         self.assertEqual(response.status_code, status.HTTP_200_OK)
+-        self.assertEqual(response.data['id'], participant.id)
++        self.assertEqual(response.data['participant_id'], participant.id)
+         self.assertEqual(response.data['email'], self.user.email)
+         self.assertEqual(response.data['user_type_key'], 'student')
+         self.assertTrue(response.data['accepted'])
+@@ -276,9 +276,9 @@ class ParticipantRetrieveTestCase(OpportunityParticipantV2APITestCase):
+         response = self.client.get(url)
+ 
+         self.assertEqual(response.status_code, status.HTTP_200_OK)
+-        self.assertEqual(response.data['id'], participant.id)
++        self.assertEqual(response.data['participant_id'], participant.id)
+         self.assertEqual(
+-            response.data['organisation_name'], self.organisation.name)
++            response.data['data']['name'], self.organisation.name)
+ 
+     def test_get_participant_not_participant_returns_404(self):
+         """Test retrieving participant when user is not a participant returns 404"""
